@@ -1,3 +1,4 @@
+#'@export
 get_JXip <- function(p, Xi, J_Xi_F){
   # function to calculate ingestion and pseudofaeces production considering
   # captured food amounts and different food sources. sinthetizing units and
