@@ -5,10 +5,7 @@ export(dget_LUH)
 export(dget_l_ISO)
 export(dget_l_V1)
 export(get_DEB_pars)
-<<<<<<< HEAD
 export(get_food)
-=======
->>>>>>> e9ccffec4639f123573af432029e9c706dff6a13
 export(get_tj)
 export(get_uE0)
 export(random.sample)
