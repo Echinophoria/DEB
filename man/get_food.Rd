@@ -15,6 +15,11 @@ get_food(p, Xi)
   \item{p}{
 A named list resulting from the importing of DEB parameters using the function \code{\link{get_DEB_pars}}. Alternatively a vector containing the DEB parameters (g, k, v_Hb, v_Hj and v_Hp (optional)) in the same order. For symbol meaning check code and documentation of \code{\link{get_DEB_pars}}
 }
+  \item{Xi}{
+A vector with the different potential food items concentrations (per volume) or densities (per area).
+Food concentrations should be given by the area or volume unit of {Fm}!!!
+For each food source X and J_X_Fm should share the same units. For example if food concentration is C-mol/m3, J_X_Fm should be C-mol/d/cm2 !!!! Howeverthese units can differ between food sources with a different unit for X0 (c-mol/m3) and X1(g/m3). Provide them following the alphabetical or numerical order of the "i" names of each food item
+}
 }
 \details{
 For each food source there should be 3 parameters:
@@ -64,7 +69,4 @@ Xi= 2.06e-05  # C-mol/l, available food
 
 J_Xi <- get_food(p, Xi)
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+
