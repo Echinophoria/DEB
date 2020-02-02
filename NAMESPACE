@@ -2,10 +2,13 @@
 
 export(beta0)
 export(dget_LUH)
+export(dget_VRE)
+export(dget_VREG)
 export(dget_l_ISO)
 export(dget_l_V1)
 export(get_DEB_pars)
 export(get_food)
+export(get_powers_j)
 export(get_tj)
 export(get_uE0)
 export(random.sample)
