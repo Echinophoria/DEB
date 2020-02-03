@@ -1,5 +1,5 @@
 #'@export
-get_food <- function(p, Xi){
+get_food_lrv <- function(p, Xi){
 
   # [f CR JX] = <../get_CR.m *get_CR*>(CR_m, Xk, X)
 
@@ -28,10 +28,10 @@ get_food <- function(p, Xi){
   # * JX: a scalar or a vector with the surface specific ingestion rates
   #       for each X
   X = Xi * p$rho_POC # J/l, convert food concentration as mass to joules
-  JXAm = p$CR_m * 2 * p$Xk # J/d cm^2, maximum surface specific feeding flux. (Maximum ingestion rate)
-  f = (X^2/(X^2 + p$Xk^2)) # -,  scaled functional response at X for ingestion and clearance
+  JXAm = p$CR_m_lrv * 2 * p$Xk_lrv # J/d cm^2, maximum surface specific feeding flux. (Maximum ingestion rate)
+  f = p$f_lrv * (X^2/(X^2 + p$Xk_lrv^2)) # -,  scaled functional response at X for ingestion and clearance
   JX = JXAm * f # J/d cm^2, surface specific ingestion rate
-  CR = JXAm * X / (X^2 + p$Xk^2)  #  l/d cm^2; clearance rate at X
+  CR = JXAm * X / (X^2 + p$Xk_lrv^2)  #  l/d cm^2; clearance rate at X
 
   out = list(f, JX, CR)
   return(out)
