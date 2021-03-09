@@ -34,7 +34,11 @@ JX <- 0 # C-mol, feeding rate ingested food
 
 
 ## environmental conditions (temperature and food)
+<<<<<<< HEAD
 Ti <- 285.15 # K,temperature
+=======
+Ti <- 291 # K,temperature
+>>>>>>> 27d771c07c513fb03410bf037f659f219a4168d6
 TC <- t_corr(p, Ti)  # correction for temperature, Ti is temperature in Kelvins
 
 
@@ -45,10 +49,23 @@ TC <- t_corr(p, Ti)  # correction for temperature, Ti is temperature in Kelvins
 # ingestion rate and allows to add n number of substrates and food selectivity.
 # for Norway and at this stage we start with one substrate --> particulate organic carbon (C-mol/liter)
 
+<<<<<<< HEAD
 Xi= 8.33e-05  # C-mol/l, available food
 
 lrv <- get_food_lrv(p, Xi) # calculate feeding related rates: Clearance, Ingestion and Egestion.
 adt <- get_food(p, Xi)
+=======
+## each substrate requires three parameters:
+p$J_Xpoc_Fm <- 4.8e-04 # C-mol/d.cm2, maximum retention rate for substrate POC
+p$rho_Xpoc  <- 0.99  # -, probability of binding of substrate POC.
+p$J_Xpoc_Im <- 1.4e-04 # C-mol/d.cm2, maximum ingestion rate
+
+Xi= 2.06e-05  # C-mol/l, available food
+
+JX <- get_food(p, Xi) # calculate feeding related rates: Clearance, Ingestion and Egestion.
+
+f_Xi <- unlist(JX[[2]])*p$kap_X*p$mu_X/p$p_Am   # equivalent to scaled functional response (assimilation rate / max. assimilation rate)
+>>>>>>> 27d771c07c513fb03410bf037f659f219a4168d6
 
 # if there are several food sources that will be assimilated, then we will need
 # to calculate individual pA for each and add them together. If all ingested is
@@ -56,9 +73,15 @@ adt <- get_food(p, Xi)
 # Right now only one food source, max two, but the second one it is not
 # assimilated!
 
+<<<<<<< HEAD
 flrv = lrv[[1]]
 fadt = adt[[1]]
 age = 0
+=======
+f = f_Xi
+
+
+>>>>>>> 27d771c07c513fb03410bf037f659f219a4168d6
 
 ## Embryo stage, H < Hb
 while (H < p$E_Hb){  # there is no feeding in this stage, this part of the code may need to be applied in steps shorter than days... for the mussel is 0.2 days at 18C.
@@ -77,7 +100,11 @@ while (H < p$E_Hb){  # there is no feeding in this stage, this part of the code 
     dH = (pC - pS - pJ)
     dV = 0
     if (dH<0){ # this is mortality relative to the condition of the egg being to bad to produce a feeding larvae
+<<<<<<< HEAD
       warning('embryo cannot develop to birth')
+=======
+      warning('embryo cannot develop to metamorphosis')
+>>>>>>> 27d771c07c513fb03410bf037f659f219a4168d6
       break()
     }
   }
@@ -94,6 +121,7 @@ while (H < p$E_Hb){  # there is no feeding in this stage, this part of the code 
     warning('embryo cannot develop to metamorphosis')
     break()
   }
+<<<<<<< HEAD
   age=age+1/24
 }
 
@@ -103,6 +131,16 @@ Lwb <- Lb / p$del_lrv # cm, physical shell length at birth (just for check up)
 
 
 f = flrv
+=======
+}
+
+Lb <- V^(1/3)  # cm, structural length at birth (needed for following stage)
+Lwb <- Lb / p$del_M # cm, physical shell length at birth (just for check up)
+# if we count the steps we can get age too.
+
+
+
+>>>>>>> 27d771c07c513fb03410bf037f659f219a4168d6
 ## Feeding larva stage, Hb < H < Hj
 while (H > p$E_Hb  & H < p$E_Hj){
   L = V^(1/3)  # structural length
@@ -144,11 +182,18 @@ while (H > p$E_Hb  & H < p$E_Hj){
   H <- H + dH/24
   V <- V + dV/24
   E <- E + dE/24
+<<<<<<< HEAD
   age=age+1/24
   }
 
 Lj <- V^(1/3)
 Lwj <- Lj / p$del_lrv
+=======
+
+  }
+
+
+>>>>>>> 27d771c07c513fb03410bf037f659f219a4168d6
 ## After settlement, Hj < H
 
 # PRIORITY IN DEB: in DEB pC*Kap is used for somatic costs and (1-kap)*pC is
@@ -156,9 +201,14 @@ Lwj <- Lj / p$del_lrv
 # maintenance, followed by maturity maintenance, reproduction and ultimately
 # growth. This can change for specific organisms. This code follow these priority assumption
 
+<<<<<<< HEAD
 s_M <- Lj/Lb
 ## Juvenile stage Hj < H < Hp
 f = fadt
+=======
+
+## Juvenile stage Hj < H < Hp
+>>>>>>> 27d771c07c513fb03410bf037f659f219a4168d6
 while (H > p$E_Hj & H < p$E_Hp){ # animal is still not mature, (1-kap)*pC is used to increase maturity (H) towards the next stage.
 
   L = V^(1/3)  # structural length
@@ -195,11 +245,17 @@ while (H > p$E_Hj & H < p$E_Hp){ # animal is still not mature, (1-kap)*pC is use
   H <- H + dH/24
   V <- V + dV/24
   E <- E + dE/24
+<<<<<<< HEAD
   age = age + 1/24
 }
 
 Lp <- V^(1/3)
 Lwp <- Lp/p$del_M
+=======
+}
+
+Lwp <- V^(1/3)/p$del_M
+>>>>>>> 27d771c07c513fb03410bf037f659f219a4168d6
 
 ## Adult (reproducing adult) H > Hp. Energy is no longer alocated to H, but instead that energy is used for reproduction.
 while (H > p$E_Hp){
@@ -240,6 +296,9 @@ while (H > p$E_Hp){
   if (V^(1/3)>Li){
     break()
   }
+<<<<<<< HEAD
   age<-age+1/24
+=======
+>>>>>>> 27d771c07c513fb03410bf037f659f219a4168d6
 }
 
